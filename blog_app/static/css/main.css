@@ -1,0 +1,248 @@
+/*---- 初始化样式 ---*/
+html{
+	font-size: 675%;
+}
+body{
+	font-size: .16rem;
+	font-family: "微软雅黑";
+	overflow-x: hidden;
+}
+a{
+	text-decoration: none !important;
+}
+.col-sm-1{
+	min-width: 70px;
+}
+.p-ellipsis{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+/*---- 顶部导航栏 ---*/
+header{
+	text-align: center;
+	height: .50rem;
+}
+header .navbar-brand{
+	display: inline-block;
+	background-color: rgb(184,49,47);
+	color: #fff !important;
+}
+header .navbar-brand:hover{
+	background-color: rgb(184,49,47) !important;
+	color: #fff !important;
+}
+header .navbar-brand .icon{
+	padding: 0;
+	width: .4rem;
+	text-align: center;
+	font-size: .2rem;
+	color: #fff;
+	vertical-align: middle;
+
+}
+header .nav .first-li:hover .nav-a{
+	background-color: rgb(8,8,8);
+	color: #fff;
+}
+header .first-li img{
+	width: 18px;
+}
+header .dropdown-menu .user-info{
+	width: 290px;
+	height: 140px;
+	padding: 20px;
+}
+header .dropdown-menu{
+	padding-bottom: 0;
+}
+header .dropdown-menu img{
+	width: 100px;
+}
+#example{
+	float: right;
+}
+#example:after{
+	content: ' ';
+	display: block;
+	height: 0;
+	visibility: hidden;
+	clear: both;
+}
+.dropdown{
+	position:relative;
+}
+#search{
+	margin: .05rem;
+	width: 3rem;
+	padding: .05rem 0 .05rem .1rem;
+	
+}
+#search-btn{
+	border: none;
+	background: none;
+	position: absolute;
+	right: 0;
+	top: .06rem;
+	font-size: 0.28rem;
+	color: rgb(169,169,169);
+}
+.user-exit-a{
+	position: absolute;
+	bottom: -30px;
+	right: 0;
+}
+/*---- 侧边栏 ---*/
+.main-aside{
+	width: 2.5rem;
+	height: 632px;
+	background-color: #EBCCCC;
+	background: url(../img/asidebg.jpg) no-repeat;
+	background-position: 50% 95%;
+	position: fixed;
+	top: 40px;
+	left: 0;
+	color: #666;
+	text-align: center;
+	display: inline-block;
+}
+.main-aside h2{
+	font-weight: bold;
+	padding-top: 30px;
+}
+.main-aside .article-info{
+	padding: 20px;
+}
+.main-aside .article-info li{
+	display: inline-block;
+	width: 30%;
+	height: 60px;
+	
+}
+.main-aside .article-info p{
+	font-weight: bold;
+	font-size: .2rem;
+}
+.main-aside .copyright{
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+	font-size: .14rem;
+	color: #ADADAD;
+}
+
+/*---- 主体文章列表 ---*/
+.main-section{
+	box-sizing: border-box;
+	width:85%;
+	display: inline-block;
+	margin-left: 270px;
+	padding: 30px 40px;
+}
+.main-section h4{
+	font-weight: bold;
+	color: rgb(153,153,153);
+	line-height: 1.5;
+}
+.main-section .row{
+	margin-top: 30px;
+}
+.main-section table{
+	border: 2px solid rgb(153,153,153);
+	margin-top: 15px;
+	
+}
+.main-section table th{
+	border-bottom: 2px solid rgb(153,153,153);
+	padding: 10px;
+	text-align: center;
+}
+.main-section table th p{
+	margin: 0;
+}
+.main-section table td{
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: .24rem;
+}
+.main-section h4 a{
+	color: rgb(79,79,79);
+	font-size: 0.2rem;
+	font-weight: normal;
+}
+.main-section h4 a:hover{
+	color: rgb(184,49,47);
+}
+.main-section .col-sm-10{
+	position: relative;
+}
+.main-section .col-sm-10 p{
+	font-size: .12rem;
+	color: #666;
+	padding-bottom: 15px;
+	line-height: 2;
+	border-bottom: 1px dashed #ccc;
+}
+.main-section .col-sm-10 span{
+	color: #ccc;
+	font-size: .12rem;
+	margin-right: 10px;
+}
+.main-section .col-sm-10 .hover-edit{
+	position: absolute;
+	top: -20px;
+	right: 40px;
+}
+.main-section .col-sm-10 .hover-edit a{
+	font-size: .14rem;
+	margin-right: 8px;
+}
+.main-section .col-sm-10 span i{
+	vertical-align: middle;
+}
+.main-section .list-content{
+	word-wrap: break-word;
+	font-size: 12px;
+	line-height: .18rem;
+	color: #888;
+	padding-bottom: 15px;
+	margin-bottom: 20px;
+	border-bottom: 1px dashed #ccc;
+}
+.art-del,.art-edit{
+	cursor: pointer;
+}
+.dowebok li{
+	display: inline-block;
+	margin: 0 10px;
+}
+/*---- 响应式微调 ---*/
+@media only screen and (max-width: 767px) {
+	header .dropdown-menu .user-info{
+		width: 100%;
+		color: #fff;
+	}
+	#example{
+		float: none;
+	}
+	#search{
+		width: 96%;
+		margin: 2%;
+	}
+	#search-btn{
+		right: 8px;
+		top: 50%;
+	}
+	.main-aside{
+		display: none;
+		width: 0;
+	}
+	.main-section{
+		width: 100%;
+		margin-left: 0;
+	}
+	.main-section .col-sm-10 .hover-edit{
+		top: -50px;
+	}
+}

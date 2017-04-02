@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block heading %}
+<title>{{ webuser }}的博客</title>
+{% endblock %}
+{% block content %}
+{% include 'aside.html' %}
+<section class="main-section">
+	<h4>我的博客文章</h4>
+	{% for a in art %}
+	<div class="row">
+		<div class="col-sm-1">
+			<table>
+				<tr><th><p>{{ a.y }}</p>{{ a.m }}</th></tr>
+				<tr><td>{{ a.d }}</td></tr>
+			</table>
+		</div>
+		<div class="col-sm-10">
+			<h4><a href="article/{{ a.artid }}" style="word-wrap: break-word">{{ a.title }}</a></h4>
+			<div class="list-content">{{ a.content }}</div>
+			<span title="访问"><i class="icon iconfont icon-eye"></i> ({{ a.read }})</span>
+			<span title="评论"><i class="icon iconfont icon-comments"></i> ({{ a.com }})</span>
+			{% if owner %}
+			<div class="hover-edit" style="display: none;">
+				<a data-id="{{ a.artid }}" class="text-primary art-edit"><i class="icon iconfont icon-write"></i> 编辑</a>
+				<a data-id="{{ a.artid }}" class="text-danger art-del"><i class="icon iconfont icon-cha"></i> 删除</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+</section>
+{% endblock %}

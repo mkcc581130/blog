@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!--suppress ALL -->
+<html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/wangEditor.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/cropper.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/labelauty.css' %}" />
+		<link rel="stylesheet" href="//at.alicdn.com/t/font_n8ow72a6oxls1yvi.css" />
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+		<script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+		{% block heading %}
+		{% endblock %}
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" style="">
+				<div class="navbar-header">
+					<span class="navbar-brand" style="cursor: pointer;"><i class="icon iconfont icon-m"></i> 博客</span>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="example">
+					<ul class="nav navbar-nav">
+
+						<li class="dropdown first-li">
+							<!--<a class="dropdown-toggle nav-a" data-toggle="dropdown" href="javascript:void(0);"><i class="icon iconfont icon-search"></i></a>-->
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li>
+									<input type="text" name="search" id="search" placeholder="输入搜索的内容..."/>
+									<button id="search-btn" type="submit" class="icon iconfont icon-huiche"></button>
+								</li>
+							</ul>
+						</li>
+						{% if autologin %}
+						<li class="first-li" title="写博客"><a class="nav-a" href="javascript:void(0);" data-toggle="modal" data-target="#myModal888"><i class="icon iconfont icon-write"></i></a></li>
+						<li class="first-li" title="个人资料"><a class="nav-a" href="javascript:void(0);s"  data-toggle="modal" data-target="#myModal8"><i class="icon iconfont icon-userinfo"></i></a></li>
+						<li class="dropdown first-li">
+							<a class="dropdown-toggle nav-a" id="userweb" href=""><img src="{{ userlogo.url }}"/></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li class="user-info">
+									<div class="col-xs-6" style="padding-left: 0">
+										<img src="{{ userlogo.url }}"/>
+									</div>
+									<div class="col-xs-6" style="position:relative;padding: 0; text-align: center;">
+										<h5 style="font-weight: bold;font-size: .14rem;line-height: 1.6;">{{ username }}</h5>
+										<p class="p-ellipsis" style="font-size: .12rem;">{{ intr }}</p>
+										<a href="javascript:void(0);" class="user-exit-a"><i class="icon iconfont icon-exit"></i></a>
+									</div>
+								</li>
+							</ul>
+							<div class="clearfix"></div>
+						</li>
+						{% else %}
+						<li class="first-li" title="点击登录">
+							<a class="nav-a" href="javascript:void(0);" data-toggle="modal" data-target="#myModal88"><img src="{% static 'img/user.png' %}"/></a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<div class="content">
+
+			{% block content %}
+			{% endblock %}
+		</div>
+		{% block footer %}
+		{% endblock %}
+		<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
+		aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;</button>
+						<h4 class="modal-title" id="myModalLabel">心动不如行动，赶紧登录吧!</h4>
+					</div>
+					<div class="modal-body modal-body-sub">
+						<div class="row">
+							<div class="col-md-8 modal_body_left modal_body_left1" style="border-right: 1px dotted #C2C2C2;padding-right:3em;">
+								<div class="sap_tabs">
+									<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+										<ul>
+											<li class="resp-tab-item" aria-controls="tab_item-0"><span>登录</span></li>
+											<li class="resp-tab-item" aria-controls="tab_item-1"><span>注册</span></li>
+										</ul>
+										<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+											<div class="facts">
+												<div class="register">
+													<form id="login-form">
+														{% csrf_token %}
+														<input id="loginname" name="username" placeholder="用户名/邮箱" type="text" required="">
+														<input id="loginpass" name="password" placeholder="密码" type="password" required="">
+														<label id="autologin"><input name="checkbox" type="checkbox" checked> 7天内自动登录</label>
+														<div class="sign-up">
+															<input class="btn-480-block" type="button" id="popup-submit" value="登 录"/>
+														</div>
+														<div id="popup-captcha"></div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+											<div class="facts">
+												<div class="register">
+													<form id="reg-form" action="reg" method="post">
+														{% csrf_token %}
+														<div class="input-div"><input placeholder="中文昵称（最多6个字）" id="regname" name="username" type="text" required=""></div>
+														<div class="input-div"><input placeholder="邮箱" id="regemail" name="email" type="email" required=""></div>
+														<div class="input-div"><input placeholder="密码" id="pass1" name="password" type="password" required=""></div>
+														<div class="input-div"><input placeholder="确认密码" id="pass2" name="password2" type="password" required=""></div>
+														<div class="input-div"><label id="agreeprop"><input name="checkbox" type="checkbox" checked> 同意《XXX用户协议》</label></div>
+														<input class="btn-480-block" id="reg-submit" type="button" value="创建用户"/>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="OR" class="hidden-xs">OR</div>
+							</div>
+							<div class="col-md-4 modal_body_right modal_body_right1">
+								<div class="row text-center sign-with">
+									<div class="col-md-12">
+										<h3 class="other-nw">您还可以用以下方式进行登录</h3>
+									</div>
+									<div class="col-md-12">
+										<ul class="social">
+											<li class="social_facebook"><a href="#" class="entypo-facebook"></a></li>
+											<li class="social_dribbble"><a href="#" class="entypo-dribbble"></a></li>
+											<li class="social_twitter"><a href="#" class="entypo-twitter"></a></li>
+											<li class="social_behance"><a href="#" class="entypo-behance"></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModal8" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;</button>
+						<h4 class="modal-title" id="myModalLabel1">个人中心</h4>
+					</div>
+					<div class="modal-body modal-body-sub">
+						<div class="row">
+							<div class="sap_tabs">
+								<div id="horizontal" style="display: block; width: 100%; margin: 0px;">
+									<div class="col-md-3" style="border-right: 1px dotted #C2C2C2;">
+										<ul class="resp-tabs-list" style="padding:0;">
+											<li class="resp-tab-item new-item" aria-controls="tab_item-0"><span>个人资料</span></li>
+											<li class="resp-tab-item new-item" aria-controls="tab_item-1"><span>修改资料</span></li>
+										</ul>
+									</div>
+									<div class="col-md-9">
+										<div class="resp-tabs-container">
+                							<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+												<div class="user-info-info" style="padding-left: 50px;">
+													<p style="margin-top: 5px">用户昵称： {{ username }}</p>
+													<p>用户id： m_{{ userid }}</p>
+													<p>用户头像： <img src="{{ userlogo.url }}" width="80"></p>
+													<p id="p-email">邮箱： {{ email }}</p>
+													<p>个人简介： {{ intr }}</p>
+												</div>
+											</div>
+											<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+												<div class="register">
+													<form action="change" method="post" id="c-form" enctype="multipart/form-data">
+														{% csrf_token %}
+														<a href="#" class="file"><input type="file" id="c-img" name="userlogo" accept="image/*">修改头像</a><img id="xsImg" width="80" style="vertical-align: top;margin-left: 10px" />
+														<input id="c-email" name="email" placeholder="修改邮箱" type="email">
+														<input id="c-pass" name="ypassword" placeholder="原密码" type="password">
+														<input id="c-pass1" name="password" placeholder="修改密码" type="password">
+														<input id="c-pass2" name="password1" placeholder="重复密码" type="password">
+														<input id="c-intr" name="intr" placeholder="修改简介（最多30字）" type="text" style="margin-top: 14px;">
+														<div class="sign-up">
+															<input id="c-save" type="button" value="保 存"/>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal888" tabindex="-1" role="dialog" aria-labelledby="myModal888" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;</button>
+						<h4 class="modal-title" id="myModalLabel1">新建&编辑文章</h4>
+					</div>
+					<div class="modal-body modal-body-sub">
+						<div class="register">
+							<input id="a-title" name="title" placeholder="文章标题（10~80字）" type="text" style="margin-bottom: 20px;background-color: #fff;">
+							<div id="a-content">
+								<p></p>
+							</div>
+							<input id="a-key" name="key" placeholder="关键字（逗号隔开,至少一个）" type="text" style="margin: 20px 0;background-color: #fff;">
+							<ul class="dowebok list-unstyled">
+								<li style="font-size:16px;vertical-align: top;position: relative;top: 8px;">文章分类 &nbsp;</li>
+								<li><input type="radio" name="radio" value="0" checked data-labelauty="web前端"></li>
+								<li><input type="radio" name="radio" value="1" data-labelauty="linux"></li>
+								<li><input type="radio" name="radio" value="2" data-labelauty="python"></li>
+								<li><input type="radio" name="radio" value="3" data-labelauty="其他"></li>
+							</ul>
+							<input id="a-ab" name="ab" placeholder="摘要（默认文章前200字）" type="text" style="margin-bottom: 20px;background-color: #fff;">
+							<input id="a-save" type="button" value="提 交"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/easyResponsiveTabs.js' %}"></script>
+		<script src="{% static 'js/wangEditor.min.js' %}"></script>
+		<script src="{% static 'js/cropper.min.js' %}"></script>
+		<script src="{% static 'js/labelauty.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+		<script>
+			$(function (){
+			    $('.navbar-brand').click(function (){
+					location.replace('/');
+                })
+			    $("input[type='radio']").labelauty();
+			    var editor = new wangEditor('a-content');
+			    editor.config.uploadImgUrl = '/upload';
+				editor.config.emotions = {
+					'default': {
+						title: '默认',
+						data: "{% static 'emotions.data' %}"
+					},
+        		};
+				editor.config.jsFilter = false;
+				editor.create();
+			    $('#horizontalTab').easyResponsiveTabs({
+					type: 'default', //Types: default, vertical, accordion
+					width: 'auto', //auto or any width like 600px
+					fit: true   // 100% fit in a container
+				});
+			    $('#horizontal').easyResponsiveTabs({
+					type: 'default', //Types: default, vertical, accordion
+					width: 'auto', //auto or any width like 600px
+					fit: true   // 100% fit in a container
+				});
+				$('#userweb').attr('href',location.href.match(/http:\/\/[A-Za-z0-9\.\:]+/) + '/m_{{ userid }}');
+				$.ajaxSetup({
+					data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+				});
+				$('#c-img').on('change',function (){
+					var file = this.files[0];
+					if(file.size / 1024 <100){
+					    var reader = new FileReader();
+						reader.onload = function (e) {
+							var img = document.getElementById("xsImg");
+							img.src = e.target.result;
+						}
+						reader.readAsDataURL(file);
+					}else{
+					    alert('文件大小大于100k，请重新选择！');
+					}
+
+                })
+				function addRightConfirm(obj) {
+					$(obj).next('.confirm-img').remove();
+					ima = document.createElement('div');
+					ima.className = 'confirm-img';
+					ima.innerHTML = "<img width='16' class='right-img' src='{% static 'img/right.png' %}'/>";
+					$(obj).after(ima);
+				}
+				function addErrorConfirm(obj) {
+					$(obj).next('.confirm-img').remove();
+					ima = document.createElement('div');
+					ima.className = 'confirm-img';
+					ima.innerHTML = "<img width='16' class='error-img' src='{% static 'img/error.png' %}'/>";
+					$(obj).after(ima);
+				}
+				$('#regemail').blur(function() {
+					if((/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test($(this).val()))) {
+						addRightConfirm(this);
+					} else {
+						addErrorConfirm(this);
+						$(this).attr('placeholder','邮箱格式错误，请重新输入!').val('');
+					}
+				});
+				$('#pass1').blur(function() {
+					if(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test($(this).val())) {
+						addRightConfirm(this);
+					} else {
+						addErrorConfirm(this);
+						$(this).attr('placeholder','密码要在6位以上并包含字母与数字，请重新输入！').val('');
+					}
+				});
+				$('#regname').blur(function() {
+				    var regname = $(this).val().replace(/[^\x00-\xff]/g,'xx').length;
+					if(regname>0 && regname<=12){
+						addRightConfirm(this);
+					} else {
+						addErrorConfirm(this);
+						$(this).attr('placeholder','昵称在6个字符以内（英文计半个），请重新输入！').val('');
+					}
+				});
+				$('#pass2').blur(function() {
+					if($(this).val() == $('#pass1').val() && $(this).val()!='') {
+						addRightConfirm(this);
+					} else {
+						addErrorConfirm(this);
+						$(this).attr('placeholder','前后两次密码不相同，请重新输入！').val('');
+					}
+				});
+				$('#a-save').click(function (){
+					var $_t = $('#a-title').val();
+					var $_k = $('#a-key').val();
+					var $_a = $('#a-ab').val();
+					var $_c = $("input[type='radio']:checked").val();
+					if($_a == ''){
+						$_a = editor.$txt.formatText().slice(0,199);
+					}
+					if($_t.length<=80 && $_t.length>=10 && $_k != '' && $_c){
+					    var saveid = '0';
+					    if($(this).attr('data-id')) saveid = $(this).attr('data-id');
+					    $.ajax({
+							url:'edit',
+							type:"post",
+							async:true,
+							dataType:'json',
+							data:{
+							    id:saveid,
+								title:$_t,
+								content:editor.$txt.html(),
+								key:$_k,
+								ab:$_a,
+								c:$_c
+							},
+							success:function(data){
+								if (data.r){
+									location.reload();
+								}
+							}
+						});
+					}else{
+					    alert('条件不符，请重新输入！')
+					}
+				});
+				$('.art-edit').click(function (){
+				    var artid = $(this).attr('data-id');
+					$.ajax({
+						url:'edit',
+						type:"post",
+						async:true,
+						dataType:'json',
+						data:{
+							artid:artid
+						},
+						success:function(data){
+							if (data.r){
+							   $('#a-title').val(data.t);
+							   $('#a-content').html(data.c);
+							   $('#a-key').val(data.k);
+							   $('#a-ab').val(data.a);
+							   $("input[type='radio']").get(data.cl).checked=true;
+							   $('#myModal888').modal('show');
+							   $('#a-save').attr('data-id',artid);
+							}
+						}
+					});
+                });
+				$('.art-del').click(function (){
+				    if(confirm('你确认删除该文章吗？')){
+				        var artid = $(this).attr('data-id');
+						$.ajax({
+							url:'artdel',
+							type:"post",
+							async:true,
+							dataType:'json',
+							data:{
+								artid:artid
+							},
+							success:function(data){
+								if (data.r){
+									location.replace('/m_'+data.ui);
+								}
+							}
+						});
+					}
+                });
+			});
+		</script>
+</html>

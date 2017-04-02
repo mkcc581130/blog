@@ -1,0 +1,138 @@
+/*---- 主体文章部分 ---*/
+.article-section{
+	box-sizing: border-box;
+	max-width:85%;
+	display: inline-block;
+	margin-left: 270px;
+	padding: 30px 40px;
+}
+.article-section h4{
+	color: rgb(153,153,153);
+	line-height: 1.5;
+}
+.article-section .row{
+	margin-top: 30px;
+}
+.article-section table{
+	border: 2px solid rgb(153,153,153);
+	margin-top: 15px;
+	
+}
+.article-section table th{
+	border-bottom: 2px solid rgb(153,153,153);
+	padding: 10px;
+	text-align: center;
+}
+.article-section table th p{
+	margin: 0;
+}
+.article-section table td{
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: .24rem;
+}
+.article-section h4 a{
+	color: rgb(79,79,79);
+	font-size: 0.2rem;
+	font-weight: normal;
+}
+.article-section h4 a:hover{
+	color: rgb(184,49,47);
+}
+.article-section .col-sm-10 p{
+	font-size: .14rem;
+	color: #666;
+	
+	line-height: 2;
+}
+.article-section .col-sm-10 .bottom-line{
+	border-bottom: 1px solid #adadad;
+	margin-bottom: 20px;
+}
+.article-section .col-sm-10 h5{
+	font-weight: bold;
+}
+.article-section .col-sm-10 .pull-left{
+	color: #adadad;
+	font-size: .14rem;
+	margin-right: 10px;
+}
+.article-section .col-sm-10 .static-edit{
+	text-align: right;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #adadad;
+	margin-bottom: 20px;
+}
+.article-section .col-sm-10 .static-edit a{
+	font-size: .14rem;
+	margin-right: 8px;
+}
+.article-section .col-sm-10 span i{
+	vertical-align: middle;
+}
+.article-section #banquan{
+	color: rgb(184,49,47);
+	padding: 20px 0;
+}
+/*---- 评论部分 ---*/
+.article-section .col-sm-10 textarea{
+    font-size: 16px;
+	width: 100%;
+	height: 120px;
+	resize: none;
+	padding: 5px 10px;
+}
+.article-section .col-sm-10 .media-body form{
+	text-align: right;
+}
+.article-section .input-more{
+	color: rgb(184,49,47) !important;
+}
+
+.article-section .media p{
+	border-bottom: 1px solid #ececec;
+	font-size: 0.12rem;
+	padding-bottom: 6px;
+	color: rgb(79,79,79);
+}
+.article-section .media span{
+	font-size: 0.12rem;
+}
+.article-section .media span a{
+	font-size: 0.12rem;
+	margin-right: 10px;
+}
+.article-section .media-body i{
+	font-size:.13rem;
+}
+.article-section .article-content{
+    color: #666;
+}
+.article-section .reply{
+    margin-top: 10px;
+    height: 0;
+    overflow: hidden;
+}
+.back-a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    border: 2px solid rgb(184,49,47);
+    font-size: 20px;
+    text-align: center;
+    line-height: 32px;
+
+}
+.back-a:hover{
+    border: 2px solid rgb(132,53,52);
+}
+/*---- 响应式微调 ---*/
+@media only screen and (max-width: 767px) {
+	.article-section{
+		max-width: 100%;
+		margin-left: 0;
+	}
+}

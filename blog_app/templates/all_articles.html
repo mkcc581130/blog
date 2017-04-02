@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block heading %}
+<title>{{ tt }}</title>
+<link rel="stylesheet" href="{% static 'css/all_articles.css' %}" />
+<style>
+    body{
+        background-color: #eee;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="contain" style="margin-top: 30px">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-weight: bold;"><i class="icon iconfont icon-{{ ti }}"></i> {{ tt }}</h3>
+				</div>
+                {% for a in artall %}
+				<div class="list-group">
+                    <div class="list-group-item">
+                        <div data-id="{{ a.ui }}" class="panel-img">
+                            <img src="{{ a.ul.url }}" width="60" >
+                            <p>{{ a.un }}</p>
+                        </div>
+                        <div class="panel-content">
+                            <h4><a href="m_{{ a.ui }}/article/{{ a.aid }}">{{ a.title }}</a></h4>
+                            <p class="panel-ab">{{ a.a }}</p>
+                            <p class="pull-left"><i class="icon iconfont icon-three-info"></i> {{ a.c }}</p>
+                            <p class="pull-right">{{ a.time }}&nbsp;&nbsp;&nbsp; <i class="icon iconfont icon-eye"></i> {{ a.r }}</p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+				</div>
+                {% endfor %}
+			</div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-weight: bold;font-size:16px;"><i class="icon iconfont icon-three-info"></i> 博文分类</h3>
+				</div>
+                <table class="table">
+                    <tr><td><i class="icon iconfont icon-web"></i> <a href="/web">web前端</a></td><td><i class="icon iconfont icon-linux"></i>
+                        <a href="/linux">linux</a></td></tr>
+                    <tr><td><i class="icon iconfont icon-python"></i> <a href="/python">python</a></td><td><i class="icon iconfont icon-qita"></i>
+                        <a href="/other">其他</a></td></tr>
+                </table>
+			</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<footer>
+    <p>Copyright &copy; 2017-2050,MKCC.CC, All Rights Reserved</p>
+</footer>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block heading %}
+<title>{{ webuser }}的博客</title>
+<link rel="stylesheet" href="{% static 'css/article.css' %}"/>
+{% endblock %}
+{% block content %}
+{% include 'aside.html' %}
+<section class="article-section">
+		<a href="{% url 'index' ownerid '' %}" class="back-a text-danger"><i class="icon iconfont icon-left"></i></a>
+	<div class="row">
+		<div class="col-sm-1">
+			<table>
+				<tr><th><p>{{ art.y }}</p> {{ art.m }}</th></tr>
+				<tr><td>{{ art.d }}</td></tr>
+			</table>
+		</div>
+		<div class="col-sm-10">
+			<h4><a href="javascript:void(0);">{{ art.title }}</a></h4>
+			<p>分类：<i style="font-style: italic;">{{ art.key }}</i></p>
+			<div class="static-edit">
+				<span title="访问"><i class="icon iconfont icon-eye"></i> ({{ art.read }})</span>
+				<span title="评论"><i class="icon iconfont icon-comments"></i> ({{ art.artcom }})</span>
+				{% if owner %}
+				<a href="javascript:void(0);" data-id="{{ artid }}" class="text-primary art-edit"><i class="icon iconfont icon-write"></i> 编辑</a>
+				<a href="javascript:void(0);" data-id="{{ artid }}" class="text-danger art-del"><i class="icon iconfont icon-cha"></i> 删除</a>
+				{% endif %}
+			</div>
+			<div class="article-content" style="word-wrap: break-word;">{{ art.content|safe }}</div>
+			<p id="banquan">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+			<div class="bottom-line"></div>
+			<h5>发表评论</h5>
+			<ul class="media-list">
+				{% if autologin %}
+					<li class="media">
+						<a href="{% url 'index' userid '' %}" class="pull-left">
+							<img src="{{ userlogo.url }}" width="40" class="media-object" />
+						</a>
+						<div class="media-body">
+							<textarea id="com-txta" style="margin-bottom: 0px;"></textarea>
+							<p class="pull-left input-more hide">还能输入1000个字符</p>
+							<input type="button" value="发表评论" id="com-btn" class="btn btn-primary pull-right" />
+							<div class="clearfix"></div>
+						</div>
+					</li>
+				{% else %}
+				<li class="media">你还没登录，请登录后评论~</li>
+				{% endif %}
+
+				{% for j in com %}
+				<li class="media">
+					<a href="{% url 'index' j.comuserid '' %}" class="pull-left">
+						<img src="{{ j.logo.url }}" width="40" class="media-object" />
+					</a>
+					<div class="media-body">
+						<h5 class="media-heading">{{ j.name }}</h5>
+						<p style="word-wrap: break-word;">{{ j.firstcom }}</p>
+						<span class="pull-left" title="评论时间">{{ j.comtime }}</span>
+						<span class="pull-right">
+							{% if userid %}
+							<a class="icon iconfont icon-huifu" style="cursor: pointer;" title="回复该评论"></a>
+							{% if j.comuserid == userid %}
+							<a data-id="{{ j.id }}" class="icon iconfont icon-cha text-danger del-comment" style="cursor: pointer;" title="删除该评论"></a>
+							{% endif %}
+							{% endif %}
+						</span>
+						<div class="clearfix"></div>
+						<div class="reply">
+							<textarea></textarea>
+							<p class="pull-left input-more hide">还能输入1000个字符</p>
+							<input data-id="{{ j.id }}" type="button" value="发表评论" class="btn btn-primary pull-right com-btn" />
+							<div class="clearfix"></div>
+						</div>
+						{% if j.second %}
+						{% for k in j.second %}
+						<div class="media">
+							<a href="{% url 'index' k.comuserid '' %}" class="pull-left">
+								<img src="{{ k.logo.url }}" width="40" class="media-object" />
+							</a>
+							<div class="media-body">
+								<h5 class="media-heading">{{ k.name }}</h5>
+								<p  style="word-wrap: break-word;">回复 {{ j.name }}：{{ k.secondcom }}</p>
+								<span class="pull-left" title="评论时间">{{ k.comtime }}</span>
+								<span class="pull-right">
+									{% if userid %}
+									{% if k.comuserid == userid %}
+									<a data-id="{{ k.id }}" class="icon iconfont icon-cha text-danger del-sec del-comment" style="cursor: pointer;" title="删除该评论"></a>
+									{% endif %}
+									{% endif %}
+								</span>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						{% endfor %}
+						{% endif %}
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</section>
+{% endblock %}
