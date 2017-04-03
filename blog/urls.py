@@ -22,6 +22,6 @@ from blog_app import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^(login|reg|logout|change|edit|artdel|web|linux|python|other)*$', views.all_articles, name='all'),
-    url(r'^m_([0-9]+)/(login|reg|logout|change|edit|artdel)*$', views.index, name='index'),
-    url(r'^m_([0-9]+)/article/(\d*)/(login|reg|logout|change|comment|delcom|edit|artdel)*$', views.article),
+    url(r'^m_(\d*)/(login|reg|logout|change|edit|artdel)*$', views.index, name='index'),
+    url(r'^m_(\d*)/article/(\d*)/(login|reg|logout|change|comment|delcom|edit|artdel)*$', views.article),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

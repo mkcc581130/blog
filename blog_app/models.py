@@ -5,10 +5,11 @@ from django.db import models
 import django.utils.timezone as timezone
 
 
+# 用户信息表
 class UserForm(models.Model):
     userid = models.IntegerField(default='10000')
     username = models.CharField(max_length=30)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=80)
     email = models.CharField(max_length=30)
     createIP = models.CharField(max_length=16)
     lastloginIP = models.CharField(max_length=16)
@@ -21,6 +22,7 @@ class UserForm(models.Model):
         return self.username
 
 
+# 文章信息表
 class ArticleForm(models.Model):
     userid = models.IntegerField(default=10000)
     arttitle = models.CharField(max_length=100)
@@ -37,6 +39,7 @@ class ArticleForm(models.Model):
         return self.arttitle
 
 
+# 评论信息表
 class CommentForm(models.Model):
     userid = models.IntegerField(default='10000')
     artid = models.IntegerField(default='0')
@@ -47,6 +50,7 @@ class CommentForm(models.Model):
         return self.commentcontent
 
 
+# 回复评论信息表
 class ReplyForm(models.Model):
     userid = models.IntegerField(default='10000')
     artid = models.IntegerField (default='0')
@@ -56,11 +60,3 @@ class ReplyForm(models.Model):
 
     def __unicode__(self):
         return self.commentcontent
-
-
-class ImgUploadForm(models.Model):
-    img = models.ImageField(upload_to='img_upload')
-    uploadtime = models.DateTimeField(default=timezone.now)
-
-    def __unicode__(self):
-        return self.img

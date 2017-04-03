@@ -2,6 +2,7 @@ from django.contrib import admin
 from blog_app.models import UserForm
 # Register your models here.
 
+
 class UserFormAdmin (admin.ModelAdmin):
     # fields = ('name', 'tel', 'address')
     # exclude = ('address', 'birthday')
