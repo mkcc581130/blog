@@ -80,9 +80,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog_database',
-        'USER': 'mkcc',
-        'PASSWORD': '123456',
-        'HOST': '192.168.2.128',
+        'USER': 'root',
+        'PASSWORD': 'qq123456',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -124,7 +124,7 @@ USE_L10N = True
 USE_TZ = True
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
-SESSION_FILE_PATH = '/home/mkcc/django/blog/blog_app/sessions'
+SESSION_FILE_PATH = 'blog_app/sessions'
 SESSION_COOKIE_NAME = 'login_cookie'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 604800
